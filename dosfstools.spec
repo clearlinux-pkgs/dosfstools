@@ -4,7 +4,7 @@
 #
 Name     : dosfstools
 Version  : 3.0.28
-Release  : 9
+Release  : 10
 URL      : https://github.com/dosfstools/dosfstools/archive/v3.0.28.tar.gz
 Source0  : https://github.com/dosfstools/dosfstools/archive/v3.0.28.tar.gz
 Summary  : No detailed summary available
