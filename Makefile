@@ -1,4 +1,5 @@
 PKG_NAME := dosfstools
-URL := https://github.com/dosfstools/dosfstools/archive/v3.0.28.tar.gz
+URL := https://github.com/dosfstools/dosfstools/archive/v4.0.tar.gz
+ARCHIVES :=
 
 include ../common/Makefile.common
