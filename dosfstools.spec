@@ -4,7 +4,7 @@
 #
 Name     : dosfstools
 Version  : 4.0
-Release  : 12
+Release  : 13
 URL      : https://github.com/dosfstools/dosfstools/archive/v4.0.tar.gz
 Source0  : https://github.com/dosfstools/dosfstools/archive/v4.0.tar.gz
 Summary  : No detailed summary available
@@ -49,7 +49,7 @@ doc components for the dosfstools package.
 %patch1 -p1
 
 %build
-%reconfigure --disable-static
+%reconfigure --disable-static --enable-compat-symlinks
 make V=1  %{?_smp_mflags}
 
 %check
@@ -67,9 +67,16 @@ rm -rf %{buildroot}
 
 %files bin
 %defattr(-,root,root,-)
+/usr/bin/dosfsck
+/usr/bin/dosfslabel
 /usr/bin/fatlabel
 /usr/bin/fsck.fat
+/usr/bin/fsck.msdos
+/usr/bin/fsck.vfat
+/usr/bin/mkdosfs
 /usr/bin/mkfs.fat
+/usr/bin/mkfs.msdos
+/usr/bin/mkfs.vfat
 
 %files doc
 %defattr(-,root,root,-)
