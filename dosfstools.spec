@@ -4,7 +4,7 @@
 #
 Name     : dosfstools
 Version  : 4.1
-Release  : 17
+Release  : 18
 URL      : https://github.com/dosfstools/dosfstools/archive/v4.1.tar.gz
 Source0  : https://github.com/dosfstools/dosfstools/archive/v4.1.tar.gz
 Summary  : No detailed summary available
@@ -40,20 +40,23 @@ doc components for the dosfstools package.
 %setup -q -n dosfstools-4.1
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1486141328
+export SOURCE_DATE_EPOCH=1526044628
 %reconfigure --disable-static --enable-compat-symlinks
-make V=1  %{?_smp_mflags}
+make  %{?_smp_mflags}
 
 %check
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1486141328
+export SOURCE_DATE_EPOCH=1526044628
 rm -rf %{buildroot}
 %make_install
 

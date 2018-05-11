@@ -1,0 +1,8 @@
+Configure miss: sys/ioccom.h usability
+Configure miss: sys/ioccom.h presence
+Configure miss: sys/ioccom.h
+Configure miss: libkern/OSByteOrder.h usability
+Configure miss: libkern/OSByteOrder.h presence
+Configure miss: libkern/OSByteOrder.h
+Configure miss: whether getmntinfo is declared
+Configure miss: xxd
