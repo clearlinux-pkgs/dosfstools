@@ -4,7 +4,7 @@
 #
 Name     : dosfstools
 Version  : 4.1
-Release  : 18
+Release  : 19
 URL      : https://github.com/dosfstools/dosfstools/archive/v4.1.tar.gz
 Source0  : https://github.com/dosfstools/dosfstools/archive/v4.1.tar.gz
 Summary  : No detailed summary available
