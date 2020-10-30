@@ -4,14 +4,15 @@
 #
 Name     : dosfstools
 Version  : 4.1
-Release  : 19
+Release  : 20
 URL      : https://github.com/dosfstools/dosfstools/archive/v4.1.tar.gz
 Source0  : https://github.com/dosfstools/dosfstools/archive/v4.1.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-3.0
-Requires: dosfstools-bin
-Requires: dosfstools-doc
+Requires: dosfstools-bin = %{version}-%{release}
+Requires: dosfstools-license = %{version}-%{release}
+Requires: dosfstools-man = %{version}-%{release}
 BuildRequires : pkgconfig(libudev)
 BuildRequires : systemd-dev
 
@@ -23,6 +24,7 @@ under the GNU GPL version 3 or later. See the file COPYING for details.
 %package bin
 Summary: bin components for the dosfstools package.
 Group: Binaries
+Requires: dosfstools-license = %{version}-%{release}
 
 %description bin
 bin components for the dosfstools package.
@@ -31,33 +33,61 @@ bin components for the dosfstools package.
 %package doc
 Summary: doc components for the dosfstools package.
 Group: Documentation
+Requires: dosfstools-man = %{version}-%{release}
 
 %description doc
 doc components for the dosfstools package.
 
 
+%package license
+Summary: license components for the dosfstools package.
+Group: Default
+
+%description license
+license components for the dosfstools package.
+
+
+%package man
+Summary: man components for the dosfstools package.
+Group: Default
+
+%description man
+man components for the dosfstools package.
+
+
 %prep
 %setup -q -n dosfstools-4.1
+cd %{_builddir}/dosfstools-4.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1526044628
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1604092681
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %reconfigure --disable-static --enable-compat-symlinks
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1526044628
+export SOURCE_DATE_EPOCH=1604092681
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/dosfstools
+cp %{_builddir}/dosfstools-4.1/COPYING %{buildroot}/usr/share/package-licenses/dosfstools/8624bcdae55baeef00cd11d5dfcfa60f68710a02
 %make_install
 
 %files
@@ -77,6 +107,22 @@ rm -rf %{buildroot}
 /usr/bin/mkfs.vfat
 
 %files doc
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 %doc /usr/share/doc/dosfstools/*
-%doc /usr/share/man/man8/*
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/dosfstools/8624bcdae55baeef00cd11d5dfcfa60f68710a02
+
+%files man
+%defattr(0644,root,root,0755)
+/usr/share/man/man8/dosfsck.8
+/usr/share/man/man8/dosfslabel.8
+/usr/share/man/man8/fatlabel.8
+/usr/share/man/man8/fsck.fat.8
+/usr/share/man/man8/fsck.msdos.8
+/usr/share/man/man8/fsck.vfat.8
+/usr/share/man/man8/mkdosfs.8
+/usr/share/man/man8/mkfs.fat.8
+/usr/share/man/man8/mkfs.msdos.8
+/usr/share/man/man8/mkfs.vfat.8
